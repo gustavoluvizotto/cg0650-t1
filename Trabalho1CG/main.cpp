@@ -7,6 +7,9 @@
  */
 
 #include <cstdlib>
+#include <iostream>
+
+#include <Render.h>
 
 using namespace std;
 
@@ -14,11 +17,10 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-
     
-    cout << "Hello World" << endl;
-    cout << "Teste" << endl;
+    Render render(argc,argv);
     
+    render.start();
     return 0;
 }
 
