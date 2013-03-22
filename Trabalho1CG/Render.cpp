@@ -16,10 +16,10 @@ Render::Render(int argc, char **argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     
     glDisable(GL_DEPTH_TEST);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     glutInitWindowSize(sizeX, sizeY);
-    glutCreateWindow("Basic Shapes");
+    glutCreateWindow("Primeiro Trabalho de Computação Gráfica");
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeyPress);

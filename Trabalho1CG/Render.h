@@ -26,18 +26,16 @@ public:
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
-
-        glBegin(GL_POINTS);
+        glBegin(GL_LINES);
             glColor3f(1, 0, 0);
 
-            glVertex2f(0.125, 0.125);
+            glVertex2f(0, 0);
 
-            glVertex2f(0.125, 0.150);
-            glVertex2f(0.125, 0.100);
-
-            glVertex2f(0.150, 0.125);
-            glVertex2f(0.100, 0.125);
+            glVertex2f(1, 1);
+//            glVertex2f(0.125, 0.100);
+//
+//            glVertex2f(0.150, 0.125);
+//            glVertex2f(0.100, 0.125);
         glEnd();
         
         glutSwapBuffers();
@@ -53,8 +51,10 @@ public:
 
 
 private:
-    int sizeX, sizeY;
+    GLint sizeX, sizeY;
 
+    
+    
 };
 
 #endif	/* RENDER_H */
