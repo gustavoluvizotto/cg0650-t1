@@ -12,6 +12,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Render.cpp</itemPath>
+      <itemPath>Render.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -34,6 +36,9 @@
         <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandLine>-I /usr/include/GL -L /usr/lib/i386-linux-gnu/ -lglut -lGL -lGLU -I .</commandLine>
+        </ccTool>
       </compileType>
     </conf>
     <conf name="Release" type="1">

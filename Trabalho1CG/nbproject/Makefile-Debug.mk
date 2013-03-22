@@ -35,15 +35,16 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/Render.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-I /usr/include/GL -L /usr/lib/i386-linux-gnu/ -lglut -lGL -lGLU -I .
+CXXFLAGS=-I /usr/include/GL -L /usr/lib/i386-linux-gnu/ -lglut -lGL -lGLU -I .
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -66,6 +67,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/Render.o: Render.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
 
 # Subprojects
 .build-subprojects:
