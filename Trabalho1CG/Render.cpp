@@ -8,6 +8,12 @@
 #include "Render.h"
 #include <GL/glut.h>
 
+Render::Render(const Render& orig) {
+}
+
+Render::~Render() {
+}
+
 /*
  * Construtor para definir tamanho da tela, modo de apresentacao, cor do fundo,
  * e desenho na tela
@@ -38,44 +44,31 @@ Render::Render(int argc, char **argv) {
  * Metodo para desenhar na tela
  */
 void Render::drawScene() {
-        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
-        glBegin(GL_LINES);
-            glColor3f(1, 0, 0);
-
-            glVertex2f(0, 0);
-
-            glVertex2f(1, 1);
-//            glVertex2f(0.125, 0.100);
-//
-//            glVertex2f(0.150, 0.125);
-//            glVertex2f(0.100, 0.125);
-        glEnd();
+    glBegin(GL_LINES);
+        glColor3f(1, 0, 0);
+        glVertex2f(0, 0);
+        glVertex2f(1, 1);
+    glEnd();
         
-        glutSwapBuffers();
+    glutSwapBuffers();
 }
 
 void Render::handleKeyPress(unsigned char key, int x, int y) {
-        switch (key) {
-            case 27:
+    switch (key) {
+        case 27:
                 exit(0);
-                break;
-        }
+        break;
+    }
 }
 
 /*
  * Metodo para deixar o programa em loop
 */
 void Render::start() {
-        glutMainLoop();
+    glutMainLoop();
 }
-
-Render::Render(const Render& orig) {
-}
-
-Render::~Render() {
-}
-

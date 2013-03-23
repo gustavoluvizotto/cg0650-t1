@@ -36,7 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/Render.o
+	${OBJECTDIR}/Render.o \
+	${OBJECTDIR}/MidPoint.o
 
 
 # C Compiler Flags
@@ -72,6 +73,11 @@ ${OBJECTDIR}/Render.o: Render.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
+
+${OBJECTDIR}/MidPoint.o: MidPoint.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/MidPoint.o MidPoint.cpp
 
 # Subprojects
 .build-subprojects:
