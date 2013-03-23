@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
- * Author: gilvolpe
- *         gustavo
+ * Authors: Gilberto Volpe Neto
+ *          Gustavo Luvizotto Cesar
  * 
  * Created on March 22, 2013, 5:00 PM
  */
@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     Render render(argc,argv);
     
     render.start();
+    
     return 0;
 }
 

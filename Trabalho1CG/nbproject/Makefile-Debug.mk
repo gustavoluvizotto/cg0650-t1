@@ -43,8 +43,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-I /usr/include/GL -L /usr/lib/i386-linux-gnu/ -lglut -lGL -lGLU -I .
-CXXFLAGS=-I /usr/include/GL -L /usr/lib/i386-linux-gnu/ -lglut -lGL -lGLU -I .
+CCFLAGS=-I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I .
+CXXFLAGS=-I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I .
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -61,17 +61,17 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/Render.o: Render.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
+	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
 
 # Subprojects
 .build-subprojects:
