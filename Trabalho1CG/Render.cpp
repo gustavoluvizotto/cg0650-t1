@@ -20,14 +20,6 @@
 #include "Render.h"
 #include <basicInformation.h>
 
-#include <GL/glut.h>
-
-Render::Render(const Render& orig) {
-}
-
-Render::~Render() {
-}
-
 /*
  * Construtor para definir tamanho da tela, modo de apresentacao, cor do fundo,
  * e desenho na tela
@@ -59,6 +51,8 @@ Render::Render(int argc, char **argv) {
  */
 void Render::drawScene() {
 
+    static int value = 1;
+
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
@@ -66,7 +60,13 @@ void Render::drawScene() {
 
     grid();
 
+    //    if (value < 250)
+    //        drawCircle(value);
+
     glutSwapBuffers();
+
+    value++;
+    //    usleep(10000000);
 }
 
 /*
@@ -91,6 +91,7 @@ void Render::grid() {
 
     glEnd();
 
+
     return;
 }
 
@@ -102,19 +103,29 @@ void Render::handleKeyPress(unsigned char key, int x, int y) {
     }
 }
 
-void Render::update(GLint value) {
+void Render::drawCircle(GLint value) {
 
-    GLint maxRadius = 250;
-    CartesianCircle cartesian(maxRadius);
+//    static SizeRadiusDraw radius2Draw;
 
-    cartesian.work();
-    
-    glutPostRedisplay();
+    //    CartesianCircle cartesian(radius2Draw.sizeCartesian[value]);
+    //    PolarCircle polar(radius2Draw.sizePolar[value]);
+    //    MidPoint mid(radius2Draw.sizeMidPoint[value]);
+
+    //    cartesian.work();
+    //    polar.work();
+
 }
 
 /*
  * Metodo para deixar o programa em loop
  */
 void Render::start() {
+
     glutMainLoop();
+}
+
+Render::Render(const Render& orig) {
+}
+
+Render::~Render() {
 }

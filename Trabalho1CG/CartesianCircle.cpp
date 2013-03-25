@@ -17,11 +17,11 @@ Point2D CartesianCircle::algorithm() {
    
     GLint r = getRadius();
     GLint x = getX();
-    
+        
     GLfloat y = (GLfloat) sqrt(r * r - x * x);
     Point2D point(x, y);
     
-    setX(x++);
-    
+    setX(x+1);
+
     return point;
 }

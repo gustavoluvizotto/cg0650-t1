@@ -7,12 +7,27 @@
 
 #include "PolarCircle.h"
 
-PolarCircle::PolarCircle() {
-}
-
-PolarCircle::PolarCircle(const PolarCircle& orig) {
+PolarCircle::PolarCircle(GLint radius) : BasicCircle(radius) {
+    
+    GLfloat theta = M_PI;
+    setTheta(theta);
 }
 
 PolarCircle::~PolarCircle() {
 }
 
+Point2D PolarCircle::algorithm() {
+   
+    GLint r = getRadius();
+    GLfloat theta = getTheta();
+        
+    GLfloat y = (GLfloat) (r*sin(theta));
+    GLfloat x = (GLfloat) (r*cos(theta));
+    
+    Point2D point(x, y);
+    
+    theta -= exp10(-3);
+    setTheta(theta);
+    
+    return point;
+}

@@ -8,11 +8,14 @@
 #ifndef POLARCIRCLE_H
 #define	POLARCIRCLE_H
 
-class PolarCircle {
+#include "BasicCircle.h"
+
+class PolarCircle : public BasicCircle{
 public:
-    PolarCircle();
-    PolarCircle(const PolarCircle& orig);
+    PolarCircle(GLint radius);
     virtual ~PolarCircle();
+    
+    Point2D algorithm();
 private:
 
 };

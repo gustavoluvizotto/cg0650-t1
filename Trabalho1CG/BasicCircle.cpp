@@ -7,7 +7,7 @@
 
 #include "BasicCircle.h"
 
-BasicCircle::BasicCircle(GLint radius) {
+BasicCircle::BasicCircle(GLint radius) : x(0) {
     this->radius = radius;
 }
 
@@ -21,6 +21,8 @@ void BasicCircle::writeCircle(Point2D point) {
 
     GLfloat x = point._x;
     GLfloat y = point._y;
+
+    glColor3f(1, 1, 1);
 
     glBegin(GL_POINTS);
 
@@ -38,8 +40,8 @@ void BasicCircle::writeCircle(Point2D point) {
 
 void BasicCircle::work() {
 
-    Point2D point(getRadius(),0);
-    
+    Point2D point(getRadius(), 0);
+
     do {
         point = algorithm();
         writeCircle(point);
@@ -50,6 +52,7 @@ void BasicCircle::work() {
 void BasicCircle::initializeRadiusAndX(GLint radius) {
     setRadius(radius);
     setX(0);
+    setTheta(atan(radius/0));
 }
 
 GLint BasicCircle::getRadius() {
@@ -66,4 +69,12 @@ GLint BasicCircle::getX() {
 
 void BasicCircle::setX(GLint x) {
     this->x = x;
+}
+
+GLfloat BasicCircle::getTheta() {
+    return this->theta;
+}
+
+void BasicCircle::setTheta(GLfloat theta) {
+    this->theta = theta;
 }

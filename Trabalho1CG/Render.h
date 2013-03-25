@@ -8,12 +8,15 @@
 #ifndef RENDER_H
 #define	RENDER_H
 
-#include <GL/glut.h>
-#include <CartesianCircle.h>
+#include "basicInformation.h"
+#include "CartesianCircle.h"
+#include "PolarCircle.h"
 
 class Render {
 private:
-    GLint sizeX, sizeY;        
+    
+    GLint sizeX, sizeY;
+    
 public: 
     Render(int argc, char **argv);
     Render(const Render& orig);
@@ -22,7 +25,7 @@ public:
     static void drawScene();
     static void grid();
     static void handleKeyPress(unsigned char key, int x, int y);
-    static void update(GLint value);
+    static void drawCircle(GLint value);
 };
 
 #endif	/* RENDER_H */

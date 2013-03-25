@@ -17,8 +17,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
     
-//    Render render(argc,argv);
-//    render.start();
+    Render render(argc,argv);
+    render.start();
     
     return 0;
 }
