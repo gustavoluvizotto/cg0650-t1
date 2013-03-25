@@ -12,9 +12,6 @@
 class MidPoint {
 private:
 public:
-    MidPoint();
-    MidPoint(const MidPoint& orig);
-    virtual ~MidPoint();
     void MidPointCircleInt(int r, int color);
     void CirclePoints(int x, int y, int color);
 };

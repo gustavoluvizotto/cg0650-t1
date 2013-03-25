@@ -6,20 +6,23 @@
  */
 
 #include "MidPoint.h"
+#include <GL/glut.h>
 
-MidPoint::MidPoint() {
-}
-
-MidPoint::MidPoint(const MidPoint& orig) {
-}
-
-MidPoint::~MidPoint() {
-}
+enum color { 
+    preto = 0,
+    azul,
+    verde,
+    turquesa,
+    vermelho,
+    magenta,
+    amarelo,
+    branco,
+};
 
 void MidPoint::MidPointCircleInt(int r, int color) {   
     int x, y, d;
 
-        /* Valores iniciais */
+    /* Valores iniciais */
     x = 0;
     y = r;
     d = 1 - r;
@@ -40,5 +43,36 @@ void MidPoint::MidPointCircleInt(int r, int color) {
 }
 
 void MidPoint::CirclePoints(int x, int y, int color) {
-    
+    switch (color) {
+        case preto:
+            glColor3f(0,0,0);
+            break;
+        case azul:
+            glColor3f(0,0,1);
+            break;
+        case verde:
+            glColor3f(0,1,0);
+            break;
+        case turquesa:
+            glColor3f(0,1,1);
+            break;
+        case vermelho:
+            glColor3f(1,0,0);
+            break;
+        case magenta:
+            glColor3f(1,0,1);
+            break;
+        case amarelo:
+            glColor3f(1,1,0);
+            break;
+        case branco:
+            glColor3f(1,1,1);
+            break;
+        default:
+            glColor3f(0,0,0);
+            break;
+    }
+    glBegin(GL_DOT3_RGB);
+    glVertex2f(x/250,y/250);
+    glEnd();
 }

@@ -20,6 +20,7 @@ public:
     virtual ~Render();
     void start();
     static void drawScene();
+    static void grid();
     static void handleKeyPress(unsigned char key, int x, int y);
 };
 
