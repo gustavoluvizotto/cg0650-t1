@@ -8,7 +8,7 @@
 #include "BasicCircle.h"
 
 BasicCircle::BasicCircle(GLint radius) {
-    this->maxRadius = radius;
+    this->radius = radius;
 }
 
 BasicCircle::BasicCircle(const BasicCircle& orig) {
@@ -38,18 +38,32 @@ void BasicCircle::writeCircle(Point2D point) {
 
 void BasicCircle::work() {
 
-//    for (GLint i = 0; i <= this->maxRadius; i++) {
-        Point2D point;
+    Point2D point(getRadius(),0);
+    
+    do {
+        point = algorithm();
+        writeCircle(point);
+    } while (point._y > point._x);
 
-        do {
-            
-            point = algorithm();
-            writeCircle(point);
+}
 
-        } while (point._y > point._x);
-//    }
+void BasicCircle::initializeRadiusAndX(GLint radius) {
+    setRadius(radius);
+    setX(0);
 }
 
 GLint BasicCircle::getRadius() {
-    return this->maxRadius;
+    return this->radius;
+}
+
+void BasicCircle::setRadius(GLint radius) {
+    this->radius = radius;
+}
+
+GLint BasicCircle::getX() {
+    return this->x;
+}
+
+void BasicCircle::setX(GLint x) {
+    this->x = x;
 }

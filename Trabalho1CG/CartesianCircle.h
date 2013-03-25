@@ -10,14 +10,12 @@
 
 #include <BasicCircle.h>
 
-class CartesianCircle : public BasicCircle{
+class CartesianCircle : public BasicCircle {
 public:
     CartesianCircle(GLint radius);
-    
     virtual ~CartesianCircle();
-    
     Point2D algorithm();
-    
+
 private:
 
 };

@@ -43,10 +43,10 @@ Render::Render(int argc, char **argv) {
 
     // desabilita profundidade (coordenada z)
     glDisable(GL_DEPTH_TEST);
-    
+
     // cor de fundo da janela: 1,1,1,1 = branco
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //comando nao está funcionando ???
-    
+
     glutInitWindowSize(sizeX, sizeY); // definindo o tamanho da tela
     glutCreateWindow("Primeiro Trabalho de Computacao Grafica");
 
@@ -59,7 +59,7 @@ Render::Render(int argc, char **argv) {
  */
 void Render::drawScene() {
 
-    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -94,17 +94,22 @@ void Render::grid() {
     return;
 }
 
-GLfloat Render::scale(GLint number) {
-    static GLint normal = 250;
-    return (GLfloat) number / normal;
-}
-
 void Render::handleKeyPress(unsigned char key, int x, int y) {
     switch (key) {
         case 27:
             exit(0);
             break;
     }
+}
+
+void Render::update(GLint value) {
+
+    GLint maxRadius = 250;
+    CartesianCircle cartesian(maxRadius);
+
+    cartesian.work();
+    
+    glutPostRedisplay();
 }
 
 /*

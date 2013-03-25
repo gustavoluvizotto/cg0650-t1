@@ -9,6 +9,7 @@
 #define	RENDER_H
 
 #include <GL/glut.h>
+#include <CartesianCircle.h>
 
 class Render {
 private:
@@ -21,9 +22,7 @@ public:
     static void drawScene();
     static void grid();
     static void handleKeyPress(unsigned char key, int x, int y);
-    static void update();
-    static GLfloat scale(GLint number);
-
+    static void update(GLint value);
 };
 
 #endif	/* RENDER_H */

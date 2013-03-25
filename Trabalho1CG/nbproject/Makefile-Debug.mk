@@ -35,8 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/BasicCircle.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/PolarCircle.o \
 	${OBJECTDIR}/Render.o \
+	${OBJECTDIR}/basicInformation.o \
+	${OBJECTDIR}/CartesianCircle.o \
 	${OBJECTDIR}/MidPoint.o
 
 
@@ -62,22 +66,42 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/BasicCircle.o: BasicCircle.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicCircle.o BasicCircle.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/PolarCircle.o: PolarCircle.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PolarCircle.o PolarCircle.cpp
 
 ${OBJECTDIR}/Render.o: Render.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
+
+${OBJECTDIR}/basicInformation.o: basicInformation.c++ 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/basicInformation.o basicInformation.c++
+
+${OBJECTDIR}/CartesianCircle.o: CartesianCircle.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/CartesianCircle.o CartesianCircle.cpp
 
 ${OBJECTDIR}/MidPoint.o: MidPoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/MidPoint.o MidPoint.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/MidPoint.o MidPoint.cpp
 
 # Subprojects
 .build-subprojects:

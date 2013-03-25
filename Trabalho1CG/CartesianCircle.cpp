@@ -15,12 +15,13 @@ CartesianCircle::~CartesianCircle() {
 
 Point2D CartesianCircle::algorithm() {
    
-    static GLint r = getRadius();
-    static GLint x = 0;
+    GLint r = getRadius();
+    GLint x = getX();
     
     GLfloat y = (GLfloat) sqrt(r * r - x * x);
     Point2D point(x, y);
-    x++;
+    
+    setX(x++);
     
     return point;
 }

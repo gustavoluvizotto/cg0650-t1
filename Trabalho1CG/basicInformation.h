@@ -14,5 +14,8 @@
 
 using namespace std;
 
+GLfloat scale(GLint number);
+
+
 #endif	/* BASICINFORMATION_H */
 

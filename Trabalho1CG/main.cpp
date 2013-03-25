@@ -20,10 +20,6 @@ int main(int argc, char** argv) {
 //    Render render(argc,argv);
 //    render.start();
     
-    CartesianCircle c(10);
-    
-    c.work();
-    
     return 0;
 }
 
