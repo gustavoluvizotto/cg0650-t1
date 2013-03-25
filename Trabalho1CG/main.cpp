@@ -10,20 +10,19 @@
 #include <iostream>
 
 #include <Render.h>
+#include <CartesianCircle.h>
 #include <MidPoint.h>
 
 using namespace std;
 
-/*
- * 
- */
 int main(int argc, char** argv) {
     
-    Render render(argc,argv);
-    MidPoint mp;
+//    Render render(argc,argv);
+//    render.start();
     
-    mp.MidPointCircleInt(10, 3);
-    render.start();
+    CartesianCircle c(10);
+    
+    c.work();
     
     return 0;
 }

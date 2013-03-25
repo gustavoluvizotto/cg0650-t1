@@ -18,9 +18,9 @@
  */
 
 #include "Render.h"
+#include <basicInformation.h>
+
 #include <GL/glut.h>
-//#include <iostream>
-//#include <cstdlib>
 
 Render::Render(const Render& orig) {
 }
@@ -38,38 +38,34 @@ Render::Render(int argc, char **argv) {
     this->sizeX = 500;
     this->sizeY = 500;
 
-    glutInit(&argc,argv);
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    
-    // desabilita profundidade (coordenada z)
-    glDisable(GL_DEPTH_TEST);      
-    // cor de fundo da janela: 1,1,1,1 = branco
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);        
 
-    glutInitWindowSize(sizeX, sizeY);           // definindo o tamanho da tela
+    // desabilita profundidade (coordenada z)
+    glDisable(GL_DEPTH_TEST);
+    
+    // cor de fundo da janela: 1,1,1,1 = branco
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //comando nao está funcionando ???
+    
+    glutInitWindowSize(sizeX, sizeY); // definindo o tamanho da tela
     glutCreateWindow("Primeiro Trabalho de Computacao Grafica");
 
-    glutDisplayFunc(drawScene);                 // metodo que faz os desenhos
+    glutDisplayFunc(drawScene); // metodo que faz os desenhos
     glutKeyboardFunc(handleKeyPress);
-
 }
 
 /*
  * Metodo para desenhar na tela
  */
 void Render::drawScene() {
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     grid();
-//    glBegin(GL_LINES);
-//        glColor3f(1, 0, 0);
-//        glVertex2f(0, 0);
-//        glVertex2f(1, 1);
-//    glEnd();
-        
+
     glutSwapBuffers();
 }
 
@@ -77,40 +73,43 @@ void Render::drawScene() {
  * funcao que desenha uma malha na tela
  */
 void Render::grid() {
-    int i, j, inc = 10;
-    
-    glBegin(GL_LINES);
+
     glColor3f(1, 0, 0);
-    i = -(250);         // tamanho minimo em X
-    // desenhando a malha na vertical
-    while (i < 250) {
-        glVertex2f(i/250,-1);
-        glVertex2f(i/250,1);
-        i += inc;
+    glBegin(GL_LINES);
+
+    /*
+     * Desenha uma grade para melhor visualização dos
+     * pontos na tela
+     */
+    for (GLint i = -250; i <= 250; i += 5) {
+        GLfloat point = scale(i);
+        glVertex2f(point, -1);
+        glVertex2f(point, 1);
+        glVertex2f(-1, point);
+        glVertex2f(1, point);
     }
-    j = -(250);         // tamanho minimo em Y
-    // desenhando a malha na horizontal
-    while (j < 250) {
-        glVertex2f(-1,j/250);
-        glVertex2f(1,j/250);
-        j += inc;
-    }
+
     glEnd();
-    
+
     return;
+}
+
+GLfloat Render::scale(GLint number) {
+    static GLint normal = 250;
+    return (GLfloat) number / normal;
 }
 
 void Render::handleKeyPress(unsigned char key, int x, int y) {
     switch (key) {
         case 27:
-                exit(0);
-        break;
+            exit(0);
+            break;
     }
 }
 
 /*
  * Metodo para deixar o programa em loop
-*/
+ */
 void Render::start() {
     glutMainLoop();
 }
