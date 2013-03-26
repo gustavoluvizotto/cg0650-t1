@@ -83,7 +83,7 @@ void Render::drawScene() {
 #ifdef _3D_
     glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(-45.0f, 0.0f, 0.0f, 1.0f);
-    glTranslatef(scale(20),scale(20),scale(20));
+    glTranslatef(scale(10),scale(10),scale(10));
     vertex();
 #else    
     grid();
