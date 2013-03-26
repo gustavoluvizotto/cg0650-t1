@@ -66,12 +66,33 @@ struct SizeRadiusDraw {
     GLint sizeCartesian[250], sizePolar[250], sizeMidPoint[250];
 
     SizeRadiusDraw() {
-        GLint random;
-        for (GLint i = 0; i < 250; i++) {
+#ifdef _3D_
+        for (GLint i = 0; i < SCALE; i++) {
             this->sizeCartesian[i] = i + 1;
             this->sizePolar[i] = i + 1;
             this->sizeMidPoint[i] = i + 1;
         }
+#else
+        for (GLint i = 0; i < SCALE; i++) {
+
+            this->sizeCartesian[i] = i + 1;
+            this->sizePolar[SCALE - (i + 1)] = i + 1;
+            bool flag = true;
+            GLint random;
+            do {
+                random = (GLint)(rand()%SCALE + 1);
+                
+                for (GLint j = 0; j < i && flag; j++) {
+                    if( random == this->sizeMidPoint[j])
+                        flag == false;
+                }
+            } while (!flag);
+
+            this->sizeMidPoint[i] = (GLint)random;
+        }
+        for (GLint i = 0; i < SCALE; i++)
+            cout << this->sizeMidPoint[i] << endl;
+#endif        
     }
 };
 

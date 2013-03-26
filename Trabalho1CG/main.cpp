@@ -9,9 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include <Render.h>
-#include <CartesianCircle.h>
-#include <MidPoint.h>
+#include "Render.h"
 
 using namespace std;
 

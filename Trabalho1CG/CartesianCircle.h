@@ -8,7 +8,7 @@
 #ifndef CARTESIANCIRCLE_H
 #define	CARTESIANCIRCLE_H
 
-#include <BasicCircle.h>
+#include "BasicCircle.h"
 
 class CartesianCircle : public BasicCircle {
 public:

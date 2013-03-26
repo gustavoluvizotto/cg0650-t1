@@ -18,7 +18,7 @@
  */
 
 #include "Render.h"
-#include <basicInformation.h>
+#include "basicInformation.h"
 
 /*
  * Construtor para definir tamanho da tela, modo de apresentacao, cor do fundo,
@@ -80,11 +80,10 @@ void Render::drawScene() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-
+#ifdef _3D_
     glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(-45.0f, 0.0f, 0.0f, 1.0f);
-
-#ifdef _3D_
+    glTranslatef(scale(20),scale(20),scale(20));
     vertex();
 #else    
     grid();
@@ -143,7 +142,7 @@ void Render::vertex() {
  */
 void Render::grid() {
 
-    glColor3f(1, 0, 0);
+    glColor3f(1.0f, 0.0f, 0.0f);
     glBegin(GL_LINES);
 
     /*
@@ -172,8 +171,8 @@ void Render::drawCircle(GLint value) {
     PolarCircle polar(radius2Draw.sizePolar[value]);
     MidPoint mid(radius2Draw.sizeMidPoint[value]);
 
-        cartesian.work();
-        polar.work();
+    cartesian.work();
+    polar.work();
     mid.work();
 }
 

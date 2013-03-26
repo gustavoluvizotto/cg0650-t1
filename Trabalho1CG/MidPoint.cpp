@@ -20,7 +20,7 @@ void MidPoint::setColor() {
 #ifdef _3D_
     glColor3f(1.0f, 0.0f, 1.0f);
 #else
-    glColor3f(0.0f, 0.0f, 1.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
 #endif
 }
 

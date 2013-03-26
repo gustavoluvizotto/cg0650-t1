@@ -1,4 +1,4 @@
-#include <basicInformation.h>
+#include "basicInformation.h"
 
 GLfloat scale(GLint number) {
     return (GLfloat) number / SCALE;

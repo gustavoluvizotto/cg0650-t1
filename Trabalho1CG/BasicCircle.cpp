@@ -84,11 +84,11 @@ void BasicCircle::writeCircle(Point3D point) {
 }
 
 void BasicCircle::work() {
-
+ 
 #ifdef _3D_
     Point3D point;
 #else    
-    Point2D point(getRadius(), 0);
+    Point2D point;
 #endif
     do {
 #ifdef _3D_

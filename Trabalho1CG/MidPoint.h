@@ -10,7 +10,6 @@
 #define	MIDPOINT_H
 
 #include "BasicCircle.h"
-#include "basicInformation.h"
 
 class MidPoint : public BasicCircle {
 private:
