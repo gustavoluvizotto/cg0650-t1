@@ -14,7 +14,10 @@ class CartesianCircle : public BasicCircle {
 public:
     CartesianCircle(GLint radius);
     virtual ~CartesianCircle();
-    Point2D algorithm();
+    
+    Point2D algorithm2D();
+    Point3D algorithm3D();
+    void setColor();
 
 private:
 

@@ -12,8 +12,16 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>BasicCircle.cpp</itemPath>
+      <itemPath>BasicCircle.h</itemPath>
+      <itemPath>CartesianCircle.cpp</itemPath>
+      <itemPath>CartesianCircle.h</itemPath>
+      <itemPath>PolarCircle.cpp</itemPath>
+      <itemPath>PolarCircle.h</itemPath>
       <itemPath>Render.cpp</itemPath>
       <itemPath>Render.h</itemPath>
+      <itemPath>basicInformation.c++</itemPath>
+      <itemPath>basicInformation.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

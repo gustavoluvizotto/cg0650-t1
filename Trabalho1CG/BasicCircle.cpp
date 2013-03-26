@@ -22,7 +22,7 @@ void BasicCircle::writeCircle(Point2D point) {
     GLfloat x = point._x;
     GLfloat y = point._y;
 
-    glColor3f(1, 1, 1);
+    setColor();
 
     glBegin(GL_POINTS);
 
@@ -38,21 +38,74 @@ void BasicCircle::writeCircle(Point2D point) {
     glEnd();
 }
 
+void BasicCircle::writeCircle(Point3D point) {
+
+    GLfloat x = point._x;
+    GLfloat y = point._y;
+    GLfloat z = point._z;
+
+    setColor();
+
+    glBegin(GL_POINTS);
+
+    switch (point._plane) {
+        case 0:
+            glVertex3f(x, y, z);
+            glVertex3f(y, x, z);
+            glVertex3f(x, -y, z);
+            glVertex3f(y, -x, z);
+            glVertex3f(-x, y, z);
+            glVertex3f(-y, x, z);
+            glVertex3f(-x, -y, z);
+            glVertex3f(-y, -x, z);
+            break;
+        case 1:
+            glVertex3f(x, y, z);
+            glVertex3f(x, z, y);
+            glVertex3f(x, y, -z);
+            glVertex3f(x, z, -y);
+            glVertex3f(x, -y, z);
+            glVertex3f(x, -z, y);
+            glVertex3f(x, -y, -z);
+            glVertex3f(x, -z, -y);
+            break;
+        case 2:
+            glVertex3f(x, y, z);
+            glVertex3f(z, y, x);
+            glVertex3f(x, y, -z);
+            glVertex3f(z, y, -x);
+            glVertex3f(-x, y, z);
+            glVertex3f(-z, y, x);
+            glVertex3f(-x, y, -z);
+            glVertex3f(-z, y, -x);
+            break;
+    }
+    glEnd();
+}
+
 void BasicCircle::work() {
 
+#ifdef _3D_
+    Point3D point;
+#else    
     Point2D point(getRadius(), 0);
-
+#endif
     do {
-        point = algorithm();
+#ifdef _3D_
+        point = algorithm3D();
+#else
+        point = algorithm2D();
+#endif
         writeCircle(point);
-    } while (point._y > point._x);
+    } while (continous(point));
 
 }
 
 void BasicCircle::initializeRadiusAndX(GLint radius) {
     setRadius(radius);
     setX(0);
-    setTheta(atan(radius/0));
+    setY(radius);
+    setTheta(M_PI);
 }
 
 GLint BasicCircle::getRadius() {
@@ -71,10 +124,33 @@ void BasicCircle::setX(GLint x) {
     this->x = x;
 }
 
+GLint BasicCircle::getY() {
+    return this->y;
+}
+
+void BasicCircle::setY(GLint y) {
+    this->y = y;
+}
+
 GLfloat BasicCircle::getTheta() {
     return this->theta;
 }
 
 void BasicCircle::setTheta(GLfloat theta) {
     this->theta = theta;
+}
+
+bool BasicCircle::continous(Point2D point) {
+    return point._y > point._x;
+}
+
+bool BasicCircle::continous(Point3D point) {
+    switch (point._plane) {
+        case 0:
+            return point._y > point._x;
+        case 1:
+            return point._y > point._z;
+        case 2:
+            return point._z > point._x;
+    }
 }

@@ -6,73 +6,70 @@
  */
 
 #include "MidPoint.h"
-#include <GL/glut.h>
 
-enum color { 
-    preto = 0,
-    azul,
-    verde,
-    turquesa,
-    vermelho,
-    magenta,
-    amarelo,
-    branco,
-};
-
-void MidPoint::MidPointCircleInt(int r, int color) {   
-    int x, y, d;
-
-    /* Valores iniciais */
-    x = 0;
-    y = r;
-    d = 1 - r;
-    this->CirclePoints(x, y, color);
-    while (y > x) {
-        if (d < 0) {
-                /* Selecione E */
-                d = d + 2 * x + 3;
-                x++;
-        }else {
-                /* Selecione SE */
-                d = d + 2 * (x - y) + 5;
-                x++;
-                y--;
-        } 
-        this->CirclePoints(x, y, color);
-    } 
+MidPoint::MidPoint(GLint radius) : BasicCircle(radius) {
+    this->increment = 1 - radius;
+    setY(radius);
+    setX(0);
 }
 
-void MidPoint::CirclePoints(int x, int y, int color) {
-    switch (color) {
-        case preto:
-            glColor3f(0,0,0);
-            break;
-        case azul:
-            glColor3f(0,0,1);
-            break;
-        case verde:
-            glColor3f(0,1,0);
-            break;
-        case turquesa:
-            glColor3f(0,1,1);
-            break;
-        case vermelho:
-            glColor3f(1,0,0);
-            break;
-        case magenta:
-            glColor3f(1,0,1);
-            break;
-        case amarelo:
-            glColor3f(1,1,0);
-            break;
-        case branco:
-            glColor3f(1,1,1);
-            break;
-        default:
-            glColor3f(0,0,0);
-            break;
+MidPoint::~MidPoint() {
+}
+
+void MidPoint::setColor() {
+#ifdef _3D_
+    glColor3f(1.0f, 0.0f, 1.0f);
+#else
+    glColor3f(0.0f, 0.0f, 1.0f);
+#endif
+}
+
+Point2D MidPoint::algorithm2D() {
+    GLint x = getX();
+    GLint y = getY();
+
+    if (this->increment < 0) {
+        /* Selecione E */
+        setIncrement(this->increment + 2 * x + 3);
+    } else {
+        /* Selecione SE */
+        setIncrement(this->increment + 2 * (x - y) + 5);
+        y--;
     }
-    glBegin(GL_DOT3_RGB);
-    glVertex2f(x/250,y/250);
-    glEnd();
+    x++;
+
+    setX(x);
+    setY(y);
+
+    Point2D point(x, y);
+    return point;
+}
+
+Point3D MidPoint::algorithm3D() {
+    GLint x = getX();
+    GLint z = getY();
+
+    if (this->increment < 0) {
+        /* Selecione E */
+        setIncrement(this->increment + 2 * x + 3);
+    } else {
+        /* Selecione SE */
+        setIncrement(this->increment + 2 * (x - z) + 5);
+        z--;
+    }
+    x++;
+
+    setX(x);
+    setY(z);
+
+    Point3D point(x, 0, z, 2);
+    return point;
+}
+
+GLint MidPoint::getIncrement() {
+    return this->increment;
+}
+
+void MidPoint::setIncrement(GLint increment) {
+    this->increment = increment;
 }

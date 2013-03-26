@@ -1,6 +1,9 @@
 #include <basicInformation.h>
 
 GLfloat scale(GLint number) {
-    static GLint normal = 250;
-    return (GLfloat) number / normal;
+    return (GLfloat) number / SCALE;
+}
+
+GLint unscale(GLfloat number) {
+    return (GLint) number * SCALE;
 }

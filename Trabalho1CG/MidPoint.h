@@ -9,11 +9,23 @@
 #ifndef MIDPOINT_H
 #define	MIDPOINT_H
 
-class MidPoint {
+#include "BasicCircle.h"
+#include "basicInformation.h"
+
+class MidPoint : public BasicCircle {
 private:
+    GLint increment;
+   
 public:
-    void MidPointCircleInt(int r, int color);
-    void CirclePoints(int x, int y, int color);
+    MidPoint(GLint radius);
+    virtual ~MidPoint();
+    
+    GLint getIncrement();
+    void setIncrement(GLint increment);
+   
+    Point2D algorithm2D();
+    Point3D algorithm3D();
+    void setColor();
 };
 
 #endif	/* MIDPOINT_H */

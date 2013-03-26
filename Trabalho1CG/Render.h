@@ -11,6 +11,7 @@
 #include "basicInformation.h"
 #include "CartesianCircle.h"
 #include "PolarCircle.h"
+#include "MidPoint.h"
 
 class Render {
 private:
@@ -24,8 +25,11 @@ public:
     void start();
     static void drawScene();
     static void grid();
+    static void vertex();
     static void handleKeyPress(unsigned char key, int x, int y);
     static void drawCircle(GLint value);
+    static void timer(GLint unused);
+    static void printstring(char *string, Point3D point, GLint color);
 };
 
 #endif	/* RENDER_H */

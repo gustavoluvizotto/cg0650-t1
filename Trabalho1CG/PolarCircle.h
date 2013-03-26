@@ -15,7 +15,9 @@ public:
     PolarCircle(GLint radius);
     virtual ~PolarCircle();
     
-    Point2D algorithm();
+    Point2D algorithm2D();
+    Point3D algorithm3D();
+    void setColor();
 private:
 
 };
