@@ -16,7 +16,7 @@ private:
     GLint increment;
    
 public:
-    MidPoint(GLint radius);
+    MidPoint(GLint radius = 0);
     virtual ~MidPoint();
     
     GLint getIncrement();

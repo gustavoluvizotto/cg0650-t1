@@ -8,28 +8,46 @@
 #ifndef RENDER_H
 #define	RENDER_H
 
-#include "basicInformation.h"
+#include "BasicFramework.h"
 #include "CartesianCircle.h"
 #include "PolarCircle.h"
 #include "MidPoint.h"
 
-class Render {
+#define NUM_MAX_INFORMATION 6
+
+class RenderCircles : public BasicFramework {
 private:
+
+    GLint value;
     
-    GLint sizeX, sizeY;
+    GLint angleX, angleY, angleZ;
+    GLfloat posMouseX, posMouseY;
+    bool end, leftButtonMouse, rightButtonMouse;
     
-public: 
-    Render(int argc, char **argv);
-    Render(const Render& orig);
-    virtual ~Render();
-    void start();
-    static void drawScene();
-    static void grid();
-    static void vertex();
-    static void handleKeyPress(unsigned char key, int x, int y);
-    static void drawCircle(GLint value);
-    static void timer(GLint unused);
-    static void printstring(char *string, Point3D point, GLint color);
+    SizeRadiusDraw radius2Draw;
+    Point3D point[NUM_MAX_INFORMATION];
+    char strings[NUM_MAX_INFORMATION][100];
+
+    CartesianCircle cartesian;
+    PolarCircle polar;
+    MidPoint mid;
+
+    void updateCircleDraw();
+    void letters();
+    void grid();
+    void vertex();
+
+
+public:
+
+    RenderCircles();
+
+    void display();
+    void handleKeyPress(unsigned char key, GLint x, GLint y);
+    void drawInterest(GLint value);
+
+    void handleMouse(GLint button, GLint state, GLint x, GLint y);
+    void handleMouseMotion(GLint x, GLint y);
 };
 
 #endif	/* RENDER_H */

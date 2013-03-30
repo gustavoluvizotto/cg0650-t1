@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Render.o \
 	${OBJECTDIR}/PolarCircle.o \
 	${OBJECTDIR}/basicInformation.o \
+	${OBJECTDIR}/BasicFramework.o \
 	${OBJECTDIR}/CartesianCircle.o \
 	${OBJECTDIR}/MidPoint.o
 
@@ -92,6 +93,11 @@ ${OBJECTDIR}/basicInformation.o: basicInformation.c++
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/basicInformation.o basicInformation.c++
+
+${OBJECTDIR}/BasicFramework.o: BasicFramework.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicFramework.o BasicFramework.cpp
 
 ${OBJECTDIR}/CartesianCircle.o: CartesianCircle.cpp 
 	${MKDIR} -p ${OBJECTDIR}

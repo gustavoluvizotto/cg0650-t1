@@ -9,14 +9,17 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "BasicFramework.h"
 #include "Render.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
     
-    Render render(argc,argv);
-    render.start();
+    BasicFramework *basic = new RenderCircles();
+    basic->setInstance(basic);
+    
+    basic->start(argc,argv);
     
     return 0;
 }

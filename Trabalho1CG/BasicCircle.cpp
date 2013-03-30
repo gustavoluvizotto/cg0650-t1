@@ -7,9 +7,10 @@
 
 #include "BasicCircle.h"
 
-BasicCircle::BasicCircle(GLint radius) : x(0) {
+BasicCircle::BasicCircle(GLint radius = 0) : x(0) {
     this->radius = radius;
 }
+
 
 BasicCircle::BasicCircle(const BasicCircle& orig) {
 }

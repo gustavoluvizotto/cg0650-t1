@@ -5,60 +5,13 @@
  * Created on March 22, 2013, 5:10 PM
  */
 
-/*
- *      R G B Valor Binario     Cor
- *      0 0 0 0                 preto
- *      0 0 1 1                 azul
- *      0 1 0 2                 verde
- *      0 1 1 3                 turquesa
- *      1 0 0 4                 vermelho
- *      1 0 1 5                 magenta
- *      1 1 0 6                 amarelo
- *      1 1 1 7                 branco
- */
-
 #include "Render.h"
-#include "basicInformation.h"
 
-/*
- * Construtor para definir tamanho da tela, modo de apresentacao, cor do fundo,
- * e desenho na tela
- * 
- */
-Render::Render(int argc, char **argv) {
+RenderCircles::RenderCircles() {
 
-    this->sizeX = SIDE_SIZE;
-    this->sizeY = SIDE_SIZE;
-
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-
-    // desabilita profundidade (coordenada z)
-    glEnable(GL_DEPTH_TEST);
-
-    // cor de fundo da janela: 1,1,1,1 = branco
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //comando nao está funcionando ???
-
-    glutInitWindowSize(sizeX, sizeY); // definindo o tamanho da tela
-    glutCreateWindow("Primeiro Trabalho de Computacao Grafica");
-
-    glutDisplayFunc(drawScene); // metodo que faz os desenhos
-    glutKeyboardFunc(handleKeyPress);
-}
-
-/*
- * Metodo para desenhar na tela
- */
-void Render::drawScene() {
-
-    static int value = 0;
-    static bool end = false;
-
-    static Point3D point[6];
     point[0]._x = scale(270);
     point[1]._y = scale(270);
     point[2]._z = scale(270);
-
     point[3]._x = scale(-120);
     point[3]._z = scale(0);
     point[3]._y = scale(-340);
@@ -67,7 +20,6 @@ void Render::drawScene() {
     point[5] = point[3];
     point[5]._y = scale(-380);
 
-    static char strings[6][100];
     strcpy(strings[0], "X");
     strcpy(strings[1], "Y");
     strcpy(strings[2], "Z");
@@ -75,22 +27,43 @@ void Render::drawScene() {
     strcpy(strings[4], "POLAR");
     strcpy(strings[5], "INTEGER");
 
+    end = leftButtonMouse = rightButtonMouse = false;
+    angleX = angleY = angleZ = 0;
+
+    posMouseX = posMouseY = 0;
+    value = 150;
+}
+
+/*
+ * Metodo para desenhar na tela
+ */
+void RenderCircles::display() {
+
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
 #ifdef _3D_
-    glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
-    glRotatef(-45.0f, 0.0f, 0.0f, 1.0f);
-    glTranslatef(scale(10),scale(10),scale(10));
+
+    glRotatef(angleX, 1.0f, 0.0f, 0.0f);
+    glRotatef(angleY, 0.0f, 1.0f, 0.0f);
+    glRotatef(angleZ, 0.0f, 0.0f, 1.0f);
+
     vertex();
 #else    
     grid();
 #endif
 
+    updateCircleDraw();
+    letters();
+    glutSwapBuffers();
+}
+
+void RenderCircles::updateCircleDraw() {
+
     if (value < 250 && !end) {
-        drawCircle(value);
+        drawInterest(value);
         value++;
 
         if (value == 250) {
@@ -99,7 +72,8 @@ void Render::drawScene() {
         }
     } else {
         if (value >= 0 && end) {
-            drawCircle(value);
+            drawInterest(value);
+            value--;
             value--;
             if (value == -1) {
                 value++;
@@ -107,15 +81,15 @@ void Render::drawScene() {
             }
         }
     }
-
-    for (GLint i = 0; i < 6; i++) {
-        printstring(strings[i], point[i], i);
-    }
-
-    glutSwapBuffers();
 }
 
-void Render::vertex() {
+void RenderCircles::letters() {
+    for (GLint i = 0; i < NUM_MAX_INFORMATION/2; i++) {
+        printstring(strings[i], point[i], i);
+    }
+}
+
+void RenderCircles::vertex() {
 
     glBegin(GL_LINES);
 
@@ -140,7 +114,7 @@ void Render::vertex() {
 /*
  * funcao que desenha uma malha na tela
  */
-void Render::grid() {
+void RenderCircles::grid() {
 
     glColor3f(1.0f, 0.0f, 0.0f);
     glBegin(GL_LINES);
@@ -159,77 +133,68 @@ void Render::grid() {
 
     glEnd();
 
-
     return;
 }
 
-void Render::drawCircle(GLint value) {
+void RenderCircles::drawInterest(GLint value) {
 
-    static SizeRadiusDraw radius2Draw;
-
-    CartesianCircle cartesian(radius2Draw.sizeCartesian[value]);
-    PolarCircle polar(radius2Draw.sizePolar[value]);
-    MidPoint mid(radius2Draw.sizeMidPoint[value]);
+    cartesian.initializeRadiusAndX(radius2Draw.sizeCartesian[value]);
+    polar.initializeRadiusAndX(radius2Draw.sizeCartesian[value]);
+    mid.initializeRadiusAndX(radius2Draw.sizeCartesian[value]);
 
     cartesian.work();
     polar.work();
     mid.work();
 }
 
-void Render::timer(GLint unused) {
-    glutPostRedisplay();
-    glutTimerFunc(30, timer, 0);
-}
-
-void Render::handleKeyPress(unsigned char key, int x, int y) {
+void RenderCircles::handleKeyPress(unsigned char key, GLint x, GLint y) {
     switch (key) {
         case 27:
+        case 'Q':
+        case 'q':
             exit(0);
             break;
     }
 }
 
-void Render::printstring(char *string, Point3D point, GLint color) {
+void RenderCircles::handleMouse(GLint button, GLint state, GLint x, GLint y) {
 
-    switch (color) {
-        case 0:
-            glColor3f(0.0f, 0.0, 1.0f);
-            break;
-        case 1:
-            glColor3f(0.0f, 1.0, 0.0f);
-            break;
-        case 2:
-            glColor3f(1.0f, 0.0, 0.0f);
-            break;
-        case 3:
-            glColor3f(0.0f, 1.0, 1.0f);
-            break;
-        case 4:
-            glColor3f(1.0f, 1.0, 0.0f);
-            break;
-        case 5:
-            glColor3f(1.0f, 0.0, 1.0f);
-            break;
-        default:
-            glColor3f(1.0f, 1.0f, 1.0f);
-            break;
+    if (state == GLUT_DOWN) {
+        if (button == GLUT_LEFT_BUTTON) {
+            posMouseX = x;
+            posMouseY = y;
+            leftButtonMouse = true;
+        }
+
+    } else {
+        if (button == GLUT_LEFT_BUTTON)
+            leftButtonMouse = false;
     }
-
-    glRasterPos3f(point._x, point._y, point._z);
-    for (char *p = string; *p; p++)
-        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *p);
 }
 
-/*
- * Metodo para deixar o programa em loop
- */
-void Render::start() {
-    glutTimerFunc(30, timer, 0);
-    glutMainLoop();
-}
+void RenderCircles::handleMouseMotion(GLint x, GLint y) {
 
-Render::Render(const Render& orig) {
-}
+    GLfloat newX = posMouseX - x;
+    GLfloat newY = posMouseY - y;
 
-Render::~Render() {
+    posMouseY = y;
+    posMouseX = x;
+    if (leftButtonMouse) {
+
+        if (newX < 0) {
+            angleY = (angleY - 1);
+        } else {
+            if (newX > 0) {
+                angleY = (angleY + 1);
+            }
+        }
+
+        if (newY < 0) {
+            angleZ = (angleZ - 1);
+        } else {
+            if (newY > 0) {
+                angleZ = (angleZ + 1);
+            }
+        }
+    }
 }

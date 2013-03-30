@@ -12,7 +12,7 @@
 
 class PolarCircle : public BasicCircle{
 public:
-    PolarCircle(GLint radius);
+    PolarCircle(GLint radius = 0);
     virtual ~PolarCircle();
     
     Point2D algorithm2D();

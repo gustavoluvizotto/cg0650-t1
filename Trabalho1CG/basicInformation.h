@@ -24,7 +24,7 @@ using namespace std;
 
 #define SIDE_SIZE       500
 #define SCALE           250
-
+#define TIME_UPDATE_MS   30
 
 GLfloat scale(GLint number);
 GLint unscale(GLfloat number);
@@ -90,8 +90,6 @@ struct SizeRadiusDraw {
 
             this->sizeMidPoint[i] = (GLint)random;
         }
-        for (GLint i = 0; i < SCALE; i++)
-            cout << this->sizeMidPoint[i] << endl;
 #endif        
     }
 };
