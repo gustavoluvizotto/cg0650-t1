@@ -39,6 +39,8 @@
     </logicalFolder>
     <itemPath>MidPoint.cpp</itemPath>
     <itemPath>MidPoint.h</itemPath>
+    <itemPath>Statistic.cpp</itemPath>
+    <itemPath>Statistic.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
