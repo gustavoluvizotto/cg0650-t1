@@ -34,7 +34,12 @@ void BasicFramework::handleMouseMotionWrapper(GLint x, GLint y) {
     instance->handleMouseMotion(x, y);
 }
 
+void BasicFramework::doSomethingInTimerWrapper(){
+    instance->doSomethingInTime();
+}
+
 void BasicFramework::timer(GLint unused) {
+    doSomethingInTimerWrapper();
     glutPostRedisplay();
     glutTimerFunc(TIME_UPDATE_MS, timerWrapper, unused);
 }

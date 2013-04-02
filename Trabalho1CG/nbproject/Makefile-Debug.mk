@@ -50,8 +50,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I .
-CXXFLAGS=-I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I .
+CCFLAGS=-I /usr/include/GL -L /usr/lib/i386/ -lglut -lGL -lGLU `pkg-config plplotd --cflags --libs` 
+CXXFLAGS=-I /usr/include/GL -L /usr/lib/i386/ -lglut -lGL -lGLU `pkg-config plplotd --cflags --libs` 
 
 # Fortran Compiler Flags
 FFLAGS=

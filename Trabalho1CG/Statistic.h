@@ -9,12 +9,15 @@
 #ifndef STATISTIC_H
 #define	STATISTIC_H
 
-#include <basicInformation.h>
+#include "basicInformation.h"
 
 #include <unistd.h>
 #include <sys/times.h>
 #include <ctime>
 #include <vector>
+
+#include "plplot/plplot.h"
+
 
 #define NUMBERS_OF_POINTS 250
 
@@ -33,12 +36,12 @@ public:
 
 private:
     struct tms oldTimer, newTimer;
-    vector<clock_t> data2Analisys[NUMBERS_OF_POINTS];
+    vector<long double> data2Analisys[NUMBERS_OF_POINTS];
 
     int vectorPosition;
-    double variance[NUMBERS_OF_POINTS];
-    double standardDeviantion[NUMBERS_OF_POINTS];
-    double average[NUMBERS_OF_POINTS];
+    long double variance[NUMBERS_OF_POINTS];
+    long double standardDeviantion[NUMBERS_OF_POINTS];
+    long double average[NUMBERS_OF_POINTS];
 
     char type[10];
     

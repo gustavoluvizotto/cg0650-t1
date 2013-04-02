@@ -10,7 +10,8 @@
 
 BasicCircle::BasicCircle(GLint radius = 0) : x(0) {
     this->radius = radius;
-    stat = new Statistic(" ");
+    char *jaca = ""; 
+    stat = new Statistic(jaca);
 }
 
 BasicCircle::BasicCircle(GLint radius = 0, char *type="") : x(0) {

@@ -11,6 +11,7 @@
 #include <GL/glut.h>
 #include <unistd.h>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -24,7 +25,7 @@ using namespace std;
 
 #define SIDE_SIZE       500
 #define SCALE           250
-#define TIME_UPDATE_MS   30
+#define TIME_UPDATE_MS   10
 
 GLfloat scale(GLint number);
 GLint unscale(GLfloat number);

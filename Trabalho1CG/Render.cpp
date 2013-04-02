@@ -9,6 +9,8 @@
 
 RenderCircles::RenderCircles() {
 
+    numberOfExecution = 0;
+
     point[0]._x = scale(270);
     point[1]._y = scale(270);
     point[2]._z = scale(270);
@@ -69,6 +71,7 @@ void RenderCircles::updateCircleDraw() {
         if (value == 250) {
             value--;
             end = true;
+            numberOfExecution++;
         }
     } else {
         if (value >= 0 && end) {
@@ -78,13 +81,14 @@ void RenderCircles::updateCircleDraw() {
             if (value == -1) {
                 value++;
                 end = false;
+                numberOfExecution++;
             }
         }
     }
 }
 
 void RenderCircles::letters() {
-    for (GLint i = 0; i < NUM_MAX_INFORMATION/2; i++) {
+    for (GLint i = 0; i < NUM_MAX_INFORMATION / 2; i++) {
         printstring(strings[i], point[i], i);
     }
 }
@@ -147,13 +151,26 @@ void RenderCircles::drawInterest(GLint value) {
     mid.work();
 }
 
+void RenderCircles::doSomethingInTime() {
+    if (numberOfExecution == NUM_MAX_EXECUTION) {
+        
+        cout << "MidPoint" << endl;
+        mid.callShowStatistic();
+//        cout << "Polar" << endl;
+//        polar.callShowStatistic();
+//        cout << "Cartesian" << endl;
+//        cartesian.callShowStatistic();
+
+        exit(0);
+    }
+}
+
 void RenderCircles::handleKeyPress(unsigned char key, GLint x, GLint y) {
     switch (key) {
         case 27:
         case 'Q':
         case 'q':
-            mid.callShowStatistic();
-            exit(0);
+//            exit(0);
             break;
     }
 }

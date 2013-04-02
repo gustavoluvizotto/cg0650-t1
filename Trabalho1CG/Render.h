@@ -14,10 +14,13 @@
 #include "MidPoint.h"
 
 #define NUM_MAX_INFORMATION 6
+#define NUM_MAX_EXECUTION  100
+
 
 class RenderCircles : public BasicFramework {
 private:
 
+    GLint numberOfExecution;
     GLint value;
     
     GLint angleX, angleY, angleZ;
@@ -48,6 +51,8 @@ public:
 
     void handleMouse(GLint button, GLint state, GLint x, GLint y);
     void handleMouseMotion(GLint x, GLint y);
+    
+    void doSomethingInTime();
 };
 
 #endif	/* RENDER_H */
