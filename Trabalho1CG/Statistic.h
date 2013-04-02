@@ -1,6 +1,7 @@
 /* 
  * File:   Statistic.h
- * Author: gilvolpe
+ * Authors: Gilberto Volpe Neto
+ *          Gustavo Luvizotto Cesar
  *
  * Created on April 1, 2013, 1:14 PM
  */
@@ -11,7 +12,7 @@
 #include <basicInformation.h>
 
 #include <unistd.h>
-#include <sys/time.h>
+#include <sys/times.h>
 #include <ctime>
 #include <vector>
 
@@ -19,24 +20,32 @@
 
 class Statistic {
 public:
-    
-    Statistic();
+
+    Statistic(char *type);
     Statistic(const Statistic& orig);
     virtual ~Statistic();
 
     void showStatistic();
+    void startCounter();
+    void stopCounter();
+    void setRadius(int radius);
+    clock_t elapsedTime();
 
 private:
     struct tms oldTimer, newTimer;
-    vector<double> data2Analisys[NUMBERS_OF_POINTS];
+    vector<clock_t> data2Analisys[NUMBERS_OF_POINTS];
 
     int vectorPosition;
     double variance[NUMBERS_OF_POINTS];
     double standardDeviantion[NUMBERS_OF_POINTS];
     double average[NUMBERS_OF_POINTS];
 
-    void startCounter();
-    void stopCounter();
+    char type[10];
+    
+    clock_t timeSub();
+    void setData();          // insere elapsedTime em vectorPosition de data2Analisys[]
+    void mean();
+    void stdDeviationAndVar();
 };
 
 #endif	/* STATISTIC_H */
