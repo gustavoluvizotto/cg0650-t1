@@ -6,11 +6,17 @@
  */
 
 #include "BasicCircle.h"
+#include "Statistic.h"
 
 BasicCircle::BasicCircle(GLint radius = 0) : x(0) {
     this->radius = radius;
+    stat = new Statistic(" ");
 }
 
+BasicCircle::BasicCircle(GLint radius = 0, char *type="") : x(0) {
+    this->radius = radius;
+    stat = new Statistic(type);
+}
 
 BasicCircle::BasicCircle(const BasicCircle& orig) {
 }
@@ -85,18 +91,21 @@ void BasicCircle::writeCircle(Point3D point) {
 }
 
 void BasicCircle::work() {
- 
+
 #ifdef _3D_
     Point3D point;
 #else    
     Point2D point;
 #endif
+    stat->setRadius(this->getRadius());
     do {
+        stat->startCounter();
 #ifdef _3D_
         point = algorithm3D();
 #else
         point = algorithm2D();
 #endif
+        stat->stopCounter();
         writeCircle(point);
     } while (continous(point));
 
@@ -154,4 +163,8 @@ bool BasicCircle::continous(Point3D point) {
         case 2:
             return point._z > point._x;
     }
+}
+
+void BasicCircle::callShowStatistic(){
+    stat->showStatistic();
 }

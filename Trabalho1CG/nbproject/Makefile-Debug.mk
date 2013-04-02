@@ -68,52 +68,52 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trabalho1cg ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/BasicCircle.o: BasicCircle.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicCircle.o BasicCircle.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicCircle.o BasicCircle.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/Render.o: Render.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Render.o Render.cpp
 
 ${OBJECTDIR}/PolarCircle.o: PolarCircle.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/PolarCircle.o PolarCircle.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PolarCircle.o PolarCircle.cpp
 
 ${OBJECTDIR}/basicInformation.o: basicInformation.c++ 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/basicInformation.o basicInformation.c++
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/basicInformation.o basicInformation.c++
 
 ${OBJECTDIR}/Statistic.o: Statistic.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/Statistic.o Statistic.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Statistic.o Statistic.cpp
 
 ${OBJECTDIR}/BasicFramework.o: BasicFramework.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicFramework.o BasicFramework.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/BasicFramework.o BasicFramework.cpp
 
 ${OBJECTDIR}/CartesianCircle.o: CartesianCircle.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/CartesianCircle.o CartesianCircle.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/CartesianCircle.o CartesianCircle.cpp
 
 ${OBJECTDIR}/MidPoint.o: MidPoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I /usr/include/GL -L /usr/lib/i686/ -lglut -lGL -lGLU -I . -MMD -MP -MF $@.d -o ${OBJECTDIR}/MidPoint.o MidPoint.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/MidPoint.o MidPoint.cpp
 
 # Subprojects
 .build-subprojects:

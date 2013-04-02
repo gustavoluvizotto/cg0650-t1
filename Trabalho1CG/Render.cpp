@@ -152,6 +152,7 @@ void RenderCircles::handleKeyPress(unsigned char key, GLint x, GLint y) {
         case 27:
         case 'Q':
         case 'q':
+            mid.callShowStatistic();
             exit(0);
             break;
     }

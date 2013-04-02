@@ -9,10 +9,12 @@
 #define	BASICCIRCLE_H
 
 #include "basicInformation.h"
+#include "Statistic.h"
 
 class BasicCircle {
 public:
     BasicCircle(GLint radius);
+    BasicCircle(GLint radius, char *type);
     BasicCircle(const BasicCircle& orig);
     virtual ~BasicCircle();
 
@@ -38,12 +40,15 @@ public:
 
     void work();
 
+    void callShowStatistic();
 private:
     GLint radius, x, y;
     GLfloat theta;
     
     bool continous(Point2D point);
     bool continous(Point3D point);
+    
+    Statistic *stat;
 };
 
 #endif	/* BASICCIRCLE_H */
