@@ -20,31 +20,46 @@ Statistic::Statistic(const Statistic& orig) {
 Statistic::~Statistic() {
 }
 
+void Statistic::getTime(char *state) {
+    struct timeval time;
+    gettimeofday(&time, NULL);
+    if (!strcmp(state, "new")) {
+        newTimer = time.tv_sec * 1000000 + time.tv_usec;
+        setData();
+    } else
+        oldTimer = time.tv_sec * 1000000 + time.tv_usec;
+}
+
 void Statistic::startCounter() {
-    times(&oldTimer);
+    //    times(&oldTimer);
     return;
 }
 
 void Statistic::stopCounter() {
-    times(&newTimer);
-    setData();
+    //    times(&newTimer);
+    //    setData();
     return;
 }
 
+/*
 clock_t Statistic::timeSub() {
     clock_t sub;
     sub = (newTimer.tms_stime + newTimer.tms_utime) - (oldTimer.tms_stime - oldTimer.tms_utime);
     //    cout << sub << endl;
     return sub;
 }
+ */
 
-clock_t Statistic::elapsedTime() {
-    return timeSub();
+//clock_t Statistic::elapsedTime() {
+
+long double Statistic::elapsedTime() {
+    //return timeSub();
+    return (newTimer - oldTimer);
 }
 
 void Statistic::setData() {
-    //    cout << vectorPosition-1 << endl;
-    data2Analisys[vectorPosition - 1].push_back((long double) elapsedTime() / CLOCKS_PER_SEC);
+    //data2Analisys[vectorPosition - 1].push_back((long double) elapsedTime() / CLOCKS_PER_SEC);
+    data2Analisys[vectorPosition - 1].push_back((long double) elapsedTime());
     return;
 }
 
@@ -74,44 +89,59 @@ void Statistic::stdDeviationAndVar() {
     return;
 }
 
+void Statistic::showStatistic() {
+    int width = 15;
+    mean();
+    stdDeviationAndVar();
+    cout << "Radius  " << "Average   " << "Standard Deviation   " << "Variance" << endl;
+    cout << "----------------------------------------------------" << endl;
+    for (int i = 0; i < NUMBERS_OF_POINTS; i++)
+        cout << i + 1 << setw(width) << average[i] << setw(width)
+        << standardDeviantion[i] << setw(width) << variance[i] << endl;
+}
+
 #define NUMPONTOS 200
 #define XMIN  -10
 #define XMAX   10
 #define YMIN  -1.0
 #define YMAX   1.0
 
-void Statistic::showStatistic() {
-    int width = 15;
-    mean();
-    stdDeviationAndVar();
-    for (int i = 0; i < NUMBERS_OF_POINTS; i++)
-        cout << i + 1 << setw(width) << average[i] << setw(width)
-        << standardDeviantion[i] << setw(width) << variance[i] << endl;
-
+void Statistic::plotStatistic() {
     PLFLT x[NUMPONTOS + 1]; /* Vetor com os pontos do eixo x */
     PLFLT y[NUMPONTOS + 1]; /* Vetor com os pontos do eixo y */
+    PLFLT z[NUMPONTOS + 1], w[NUMPONTOS + 1];
     PLINT i;
 
     double min = 999999999999999;
     double max = 0;
 
     for (i = 0; i < NUMPONTOS; i++) {
-        x[i] = i+1;
-        y[i] = average[i];
-        if( y[i] < min)
+        x[i] = (PLFLT) (i + 1);
+        y[i] = (PLFLT) average[i];
+        z[i] = (PLFLT) standardDeviantion[i];
+        w[i] = (PLFLT) variance[i];
+        if (y[i] < min)
             min = y[i];
-        if( y[i] > max)
+        if (y[i] > max)
             max = y[i];
     }
     plinit();
 
+
     plenv(0, NUMPONTOS, min, max, 0, -1);
+    plpoin(NUMPONTOS, x, y, '.');
+    pllab("Radius", "Average", "Trabalho 1 - Computacao Grafica");
 
-//    pllab("x", "x barra", "Raio X Media");
+    plenv(0, NUMPONTOS, min, max, 0, -1);
+    plpoin(NUMPONTOS, x, z, '.');
+    pllab("Radius", "Std. Dev.", "Trabalho 1 - Computacao Grafica");
 
-    plpoin(NUMPONTOS,x,y,'.');
+    plenv(0, NUMPONTOS, min, max, 0, -1);
+    plpoin(NUMPONTOS, x, w, '.');
+    pllab("Radius", "Var.", "Trabalho 1 - Computacao Grafica");
 
     plend();
+    return;
 }
 
 void Statistic::setRadius(int radius) {

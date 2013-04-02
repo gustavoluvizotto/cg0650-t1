@@ -29,13 +29,16 @@ public:
     virtual ~Statistic();
 
     void showStatistic();
+    void plotStatistic();
     void startCounter();
     void stopCounter();
+    void getTime(char *state);
     void setRadius(int radius);
-    clock_t elapsedTime();
-
+    //clock_t elapsedTime();
+    long double elapsedTime();
 private:
-    struct tms oldTimer, newTimer;
+    //struct tms oldTimer, newTimer;
+    long double oldTimer, newTimer;
     vector<long double> data2Analisys[NUMBERS_OF_POINTS];
 
     int vectorPosition;
@@ -45,7 +48,7 @@ private:
 
     char type[10];
     
-    clock_t timeSub();
+    //clock_t timeSub();
     void setData();          // insere elapsedTime em vectorPosition de data2Analisys[]
     void mean();
     void stdDeviationAndVar();

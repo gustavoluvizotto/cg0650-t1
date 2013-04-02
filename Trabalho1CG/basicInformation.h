@@ -15,6 +15,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstring>
+#include <sys/time.h>
 
 #define _3D_
 #ifndef _3D_

@@ -100,13 +100,15 @@ void BasicCircle::work() {
 #endif
     stat->setRadius(this->getRadius());
     do {
-        stat->startCounter();
+        //stat->startCounter();
+        stat->getTime("old");
 #ifdef _3D_
         point = algorithm3D();
 #else
         point = algorithm2D();
 #endif
-        stat->stopCounter();
+        //stat->stopCounter();
+        stat->getTime("new");
         writeCircle(point);
     } while (continous(point));
 
@@ -168,4 +170,5 @@ bool BasicCircle::continous(Point3D point) {
 
 void BasicCircle::callShowStatistic(){
     stat->showStatistic();
+    stat->plotStatistic();
 }
