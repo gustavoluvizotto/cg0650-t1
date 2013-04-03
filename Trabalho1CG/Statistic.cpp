@@ -101,46 +101,85 @@ void Statistic::showStatistic() {
         << standardDeviantion[i] << setw(width) << variance[i] << endl;
 }
 
-void Statistic::plotStatistic() {
-    
+void Statistic::plotStatistic(int op) {
+
     calcLeastSquareArrow();
-    
-    cout<< "parametros RMQ" << aLS << " " << bLS << endl;
-            
-    PLFLT x[NUMBERS_OF_POINTS + 1]; /* Vetor com os pontos do eixo x */
-    PLFLT y[NUMBERS_OF_POINTS + 1]; /* Vetor com os pontos do eixo y */
+
+    PLFLT x[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo x */
+    PLFLT y[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo y */
     PLINT i;
 
     PLFLT x_LS[NUMBERS_OF_POINTS];
     PLFLT y_LS[NUMBERS_OF_POINTS];
 
-    double min = 999999999999;
+    double min = INFINITY;
     double max = 0;
 
     for (i = 0; i < NUMBERS_OF_POINTS; i++) {
-        y_LS[i] = x[i] = (PLFLT) (i + 1);
+        x_LS[i] = x[i] = (PLFLT) (i + 1);
         y[i] = (PLFLT) average[i];
-        y_LS[i] = calcPointLeastSquareArrow(i+1);
-        
+        y_LS[i] = calcPointLeastSquareArrow(i + 1);
+
         if (y[i] < min)
             min = y[i];
         if (y[i] > max)
             max = y[i];
     }
+
+    plsdev("png"); //para gerar files.png
+    switch (op) {
+        case 0:
+            plsfnam("graphics/cartesian");
+            break;
+        case 1:
+            plsfnam("graphics/polar");
+            break;
+        case 2:
+            plsfnam("graphics/midpoint");
+            break;
+        default:
+            plsfnam("anything");
+            break;
+    }
     plinit();
 
+    plcol0(15);
+    plenv(0, NUMBERS_OF_POINTS, min, max, 2, 2);
 
-    plenv(0, NUMBERS_OF_POINTS, min, max, 0, 3);
-    plpoin(NUMBERS_OF_POINTS, x, y, '.');
-    plline(NUMBERS_OF_POINTS, x_LS, y_LS);
-    pllab("Radius", "Average (us)", "Trabalho 1 - Computacao Grafica");
+    switch (op) {
+        case 0:
+            pllab("Radius", "Average (us)", "Cartesian");
+            plcol0(2); //yellow
+            plpoin(NUMBERS_OF_POINTS, x, y, '.');
+            plcol0(3); //green
+            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            break;
+        case 1:
+            pllab("Radius", "Average (us)", "Polar");
+            plcol0(2); //yellow
+            plpoin(NUMBERS_OF_POINTS, x, y, '.');
+            plcol0(3); //green
+            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            break;
+        case 2:
+            pllab("Radius", "Average (us)", "MidPoint");
+            plcol0(2); //yellow
+            plpoin(NUMBERS_OF_POINTS, x, y, '.');
+            plcol0(3); //green
+            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            break;
+        default:
+            pllab("Radius", "Average (us)", "Trabalho 1 - Computacao Grafica");
+            plpoin(NUMBERS_OF_POINTS, x, y, '.');
+            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            break;
+    }
 
     plend();
     return;
 }
 
 PLFLT Statistic::calcPointLeastSquareArrow(PLINT x) {
-
     return (aLS + bLS * x);
 }
 

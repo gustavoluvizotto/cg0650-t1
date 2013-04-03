@@ -29,7 +29,7 @@ public:
     virtual ~Statistic();
 
     void showStatistic();
-    void plotStatistic();
+    void plotStatistic(int op);
     void startCounter();
     void stopCounter();
     void getTime(char *state);
@@ -45,9 +45,7 @@ private:
     long double variance[NUMBERS_OF_POINTS];
     long double standardDeviantion[NUMBERS_OF_POINTS];
     long double average[NUMBERS_OF_POINTS];
-    
-   
-    
+     
     //para fazer a reta dos minimos quadrados
     long double aLS, bLS;
 

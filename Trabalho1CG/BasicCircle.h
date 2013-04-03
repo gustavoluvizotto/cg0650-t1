@@ -40,7 +40,7 @@ public:
 
     void work();
 
-    void callShowStatistic();
+    void callShowStatistic(int op);
 private:
     GLint radius, x, y;
     GLfloat theta;

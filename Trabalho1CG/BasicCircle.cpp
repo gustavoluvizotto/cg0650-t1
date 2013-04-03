@@ -181,7 +181,7 @@ bool BasicCircle::continous(Point3D point) {
     }
 }
 
-void BasicCircle::callShowStatistic() {
+void BasicCircle::callShowStatistic(int op) {
     stat->showStatistic();
-    stat->plotStatistic();
+    stat->plotStatistic(op);
 }

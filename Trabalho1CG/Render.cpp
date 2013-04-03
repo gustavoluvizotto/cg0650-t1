@@ -153,13 +153,13 @@ void RenderCircles::drawInterest(GLint value) {
 
 void RenderCircles::doSomethingInTime() {
     if (numberOfExecution == NUM_MAX_EXECUTION) {
-        
+
+        cout << "Cartesian" << endl;
+        cartesian.callShowStatistic(0);
+        cout << "Polar" << endl;
+        polar.callShowStatistic(1);
         cout << "MidPoint" << endl;
-        mid.callShowStatistic();
-//        cout << "Polar" << endl;
-//        polar.callShowStatistic();
-//        cout << "Cartesian" << endl;
-//        cartesian.callShowStatistic();
+        mid.callShowStatistic(2);
 
         exit(0);
     }
