@@ -36,6 +36,10 @@ public:
     void setRadius(int radius);
     //clock_t elapsedTime();
     long double elapsedTime();
+    
+
+    void makeTestStatistical();
+
 private:
     //struct tms oldTimer, newTimer;
     long double oldTimer, newTimer;

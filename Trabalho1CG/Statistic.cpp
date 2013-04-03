@@ -94,16 +94,18 @@ void Statistic::showStatistic() {
     int width = 15;
     mean();
     stdDeviationAndVar();
+    calcLeastSquareArrow();
     cout << "Radius  " << "Average   " << "Standard Deviation   " << "Variance" << endl;
-    cout << "----------------------------------------------------" << endl;
+    cout << "------------------------------------------------" << endl;
     for (int i = 0; i < NUMBERS_OF_POINTS; i++)
-        cout << i + 1 << setw(width) << average[i] << setw(width)
-        << standardDeviantion[i] << setw(width) << variance[i] << endl;
+        cout << i + 1 << setw(width) << average[i]  << setw(width) << standardDeviantion[i]  << setw(width) << variance[i]  << endl;
+    
+    cout << "Equation of Least Mean Square" << endl;
+    cout << "y = " << aLS << " + " << bLS << "x" << endl;
+    cout << "------------------------------------------------" << endl;
 }
 
 void Statistic::plotStatistic(int op) {
-
-    calcLeastSquareArrow();
 
     PLFLT x[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo x */
     PLFLT y[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo y */
@@ -144,7 +146,7 @@ void Statistic::plotStatistic(int op) {
     plinit();
 
     plcol0(15);
-    plenv(0, NUMBERS_OF_POINTS, min, max, 2, 2);
+    plenv(0, NUMBERS_OF_POINTS, min, max, 0, 1);
 
     switch (op) {
         case 0:
@@ -186,13 +188,16 @@ PLFLT Statistic::calcPointLeastSquareArrow(PLINT x) {
 void Statistic::calcLeastSquareArrow() {
 
     long double y_mean = 0;
+    long double x_mean = 0;
     for (int i = 0; i < NUMBERS_OF_POINTS; i++) {
         y_mean += average[i];
+        x_mean += (long double) i + 1;
     }
 
     y_mean /= NUMBERS_OF_POINTS;
+    x_mean /= NUMBERS_OF_POINTS;
 
-    int half = NUMBERS_OF_POINTS / 2;
+    long double half = x_mean;
     long double den = 0, num = 0;
     for (int i = 0; i < NUMBERS_OF_POINTS; i++) {
         long double xi_xmean;
@@ -208,4 +213,46 @@ void Statistic::calcLeastSquareArrow() {
 void Statistic::setRadius(int radius) {
     vectorPosition = radius;
     return;
+}
+
+void Statistic::makeTestStatistical() {
+
+    PLFLT x[] = {139, 126, 90, 144, 163, 136, 61, 62, 41, 120}; /* Vetor com os pontos do eixo x */
+    PLFLT y[] = {122, 114, 86, 134, 146, 107, 68, 117, 71, 98}; /* Vetor com os pontos do eixo y */
+    PLINT i;
+
+    for (int i = 0; i < 10; i++) {
+        cout << x << "   " << y << endl;
+    }
+
+    long double y_mean = 0;
+    long double x_mean = 0;
+    for (int i = 0; i < 10; i++) {
+        y_mean += y[i];
+        x_mean += x[i];
+    }
+
+    y_mean /= 10;
+    x_mean /= 10;
+
+    long double a = 0, b = 0;
+    long double half = x_mean;
+    long double den = 0, num = 0;
+    for (int i = 0; i < 10; i++) {
+        long double xi_xmean;
+        xi_xmean = x[i] - half;
+        den += pow(xi_xmean, 2);
+        num += (xi_xmean)*(y[i] - y_mean);
+    }
+
+    cout << num << endl;
+    cout << den << endl;
+    cout << half << endl;
+    b = (long double) num / den;
+    a = y_mean - b*half;
+
+    cout << y_mean << endl;
+    cout << b << endl;
+    cout << a << endl;
+
 }
