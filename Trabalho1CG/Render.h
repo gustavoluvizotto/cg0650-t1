@@ -14,7 +14,7 @@
 #include "MidPoint.h"
 
 #define NUM_MAX_INFORMATION 6
-#define NUM_MAX_EXECUTION  4
+#define NUM_MAX_EXECUTION  2
 
 
 class RenderCircles : public BasicFramework {

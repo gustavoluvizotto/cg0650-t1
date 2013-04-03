@@ -10,11 +10,11 @@
 
 BasicCircle::BasicCircle(GLint radius = 0) : x(0) {
     this->radius = radius;
-    char *jaca = ""; 
+    char *jaca = "";
     stat = new Statistic(jaca);
 }
 
-BasicCircle::BasicCircle(GLint radius = 0, char *type="") : x(0) {
+BasicCircle::BasicCircle(GLint radius = 0, char *type = "") : x(0) {
     this->radius = radius;
     stat = new Statistic(type);
 }
@@ -95,23 +95,36 @@ void BasicCircle::work() {
 
 #ifdef _3D_
     Point3D point;
+    vector<Point3D> vPoint;
 #else    
     Point2D point;
+    vector<Point2D> vPoint;
 #endif
     stat->setRadius(this->getRadius());
+
+    stat->getTime("old");
     do {
-        //stat->startCounter();
-        stat->getTime("old");
+        //stat->startCounter()
 #ifdef _3D_
         point = algorithm3D();
 #else
         point = algorithm2D();
 #endif
         //stat->stopCounter();
-        stat->getTime("new");
-        writeCircle(point);
-    } while (continous(point));
 
+        vPoint.push_back(point);
+
+    } while (continous(point));
+    stat->getTime("new");
+
+#ifdef _3D_
+    vector<Point3D>::iterator it;
+#else
+    vector<Point2D>::iterator it;
+#endif
+
+    for (it = vPoint.begin(); it != vPoint.end(); it++)
+        writeCircle(*it);
 }
 
 void BasicCircle::initializeRadiusAndX(GLint radius) {
@@ -168,7 +181,7 @@ bool BasicCircle::continous(Point3D point) {
     }
 }
 
-void BasicCircle::callShowStatistic(){
+void BasicCircle::callShowStatistic() {
     stat->showStatistic();
     stat->plotStatistic();
 }

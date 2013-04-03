@@ -170,7 +170,6 @@ void RenderCircles::handleKeyPress(unsigned char key, GLint x, GLint y) {
         case 27:
         case 'Q':
         case 'q':
-//            exit(0);
             break;
     }
 }

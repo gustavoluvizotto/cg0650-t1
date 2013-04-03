@@ -82,6 +82,7 @@ void Statistic::stdDeviationAndVar() {
     for (i = 0; i < 250; i++) {
         for (it = data2Analisys[i].begin(); it != data2Analisys[i].end(); it++)
             standardDeviantion[i] = pow(*it - average[i], 2);
+
         standardDeviantion[i] = (long double) standardDeviantion[i] / data2Analisys[i].size();
         variance[i] = standardDeviantion[i];
         standardDeviantion[i] = sqrt(standardDeviantion[i]);
@@ -100,26 +101,27 @@ void Statistic::showStatistic() {
         << standardDeviantion[i] << setw(width) << variance[i] << endl;
 }
 
-#define NUMPONTOS 200
-#define XMIN  -10
-#define XMAX   10
-#define YMIN  -1.0
-#define YMAX   1.0
-
 void Statistic::plotStatistic() {
-    PLFLT x[NUMPONTOS + 1]; /* Vetor com os pontos do eixo x */
-    PLFLT y[NUMPONTOS + 1]; /* Vetor com os pontos do eixo y */
-    PLFLT z[NUMPONTOS + 1], w[NUMPONTOS + 1];
+    
+    calcLeastSquareArrow();
+    
+    cout<< "parametros RMQ" << aLS << " " << bLS << endl;
+            
+    PLFLT x[NUMBERS_OF_POINTS + 1]; /* Vetor com os pontos do eixo x */
+    PLFLT y[NUMBERS_OF_POINTS + 1]; /* Vetor com os pontos do eixo y */
     PLINT i;
 
-    double min = 999999999999999;
+    PLFLT x_LS[NUMBERS_OF_POINTS];
+    PLFLT y_LS[NUMBERS_OF_POINTS];
+
+    double min = 999999999999;
     double max = 0;
 
-    for (i = 0; i < NUMPONTOS; i++) {
-        x[i] = (PLFLT) (i + 1);
+    for (i = 0; i < NUMBERS_OF_POINTS; i++) {
+        y_LS[i] = x[i] = (PLFLT) (i + 1);
         y[i] = (PLFLT) average[i];
-        z[i] = (PLFLT) standardDeviantion[i];
-        w[i] = (PLFLT) variance[i];
+        y_LS[i] = calcPointLeastSquareArrow(i+1);
+        
         if (y[i] < min)
             min = y[i];
         if (y[i] > max)
@@ -128,20 +130,40 @@ void Statistic::plotStatistic() {
     plinit();
 
 
-    plenv(0, NUMPONTOS, min, max, 0, -1);
-    plpoin(NUMPONTOS, x, y, '.');
-    pllab("Radius", "Average", "Trabalho 1 - Computacao Grafica");
-
-    plenv(0, NUMPONTOS, min, max, 0, -1);
-    plpoin(NUMPONTOS, x, z, '.');
-    pllab("Radius", "Std. Dev.", "Trabalho 1 - Computacao Grafica");
-
-    plenv(0, NUMPONTOS, min, max, 0, -1);
-    plpoin(NUMPONTOS, x, w, '.');
-    pllab("Radius", "Var.", "Trabalho 1 - Computacao Grafica");
+    plenv(0, NUMBERS_OF_POINTS, min, max, 0, 3);
+    plpoin(NUMBERS_OF_POINTS, x, y, '.');
+    plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+    pllab("Radius", "Average (us)", "Trabalho 1 - Computacao Grafica");
 
     plend();
     return;
+}
+
+PLFLT Statistic::calcPointLeastSquareArrow(PLINT x) {
+
+    return (aLS + bLS * x);
+}
+
+void Statistic::calcLeastSquareArrow() {
+
+    long double y_mean = 0;
+    for (int i = 0; i < NUMBERS_OF_POINTS; i++) {
+        y_mean += average[i];
+    }
+
+    y_mean /= NUMBERS_OF_POINTS;
+
+    int half = NUMBERS_OF_POINTS / 2;
+    long double den = 0, num = 0;
+    for (int i = 0; i < NUMBERS_OF_POINTS; i++) {
+        long double xi_xmean;
+        xi_xmean = (i + 1) - half;
+        den += pow(xi_xmean, 2);
+        num += (xi_xmean)*(average[i] - y_mean);
+    }
+
+    bLS = (long double) num / den;
+    aLS = y_mean - bLS*half;
 }
 
 void Statistic::setRadius(int radius) {

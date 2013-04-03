@@ -45,6 +45,11 @@ private:
     long double variance[NUMBERS_OF_POINTS];
     long double standardDeviantion[NUMBERS_OF_POINTS];
     long double average[NUMBERS_OF_POINTS];
+    
+   
+    
+    //para fazer a reta dos minimos quadrados
+    long double aLS, bLS;
 
     char type[10];
     
@@ -52,6 +57,9 @@ private:
     void setData();          // insere elapsedTime em vectorPosition de data2Analisys[]
     void mean();
     void stdDeviationAndVar();
+
+    void calcLeastSquareArrow();
+    PLFLT calcPointLeastSquareArrow(PLINT x);
 };
 
 #endif	/* STATISTIC_H */
