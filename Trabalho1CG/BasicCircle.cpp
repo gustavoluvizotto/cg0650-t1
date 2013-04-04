@@ -183,5 +183,7 @@ bool BasicCircle::continous(Point3D point) {
 
 void BasicCircle::callShowStatistic(int op) {
     stat->showStatistic();
+#ifdef PL_PLOT_GRAPH
     stat->plotStatistic(op);
+#endif
 }

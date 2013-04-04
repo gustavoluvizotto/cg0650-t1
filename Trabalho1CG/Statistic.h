@@ -16,8 +16,10 @@
 #include <ctime>
 #include <vector>
 
+//#define PL_PLOT_GRAPH
+#ifdef PL_PLOT_GRAPH
 #include "plplot/plplot.h"
-
+#endif
 
 #define NUMBERS_OF_POINTS 250
 
@@ -36,9 +38,10 @@ public:
     void setRadius(int radius);
     //clock_t elapsedTime();
     long double elapsedTime();
-    
 
+#ifdef PL_PLOT_GRAPH
     void makeTestStatistical();
+#endif
 
 private:
     //struct tms oldTimer, newTimer;
@@ -49,19 +52,24 @@ private:
     long double variance[NUMBERS_OF_POINTS];
     long double standardDeviantion[NUMBERS_OF_POINTS];
     long double average[NUMBERS_OF_POINTS];
-     
+
+    char type[10];
+#ifdef PL_PLOT_GRAPH
     //para fazer a reta dos minimos quadrados
     long double aLS, bLS;
 
-    char type[10];
-    
+    void calcLeastSquareArrow();
+    PLFLT calcPointLeastSquareArrow(PLINT x);
+    PLFLT calcPointLeastSquareArrow(PLFLT x);
+
+
+#endif
+
     //clock_t timeSub();
-    void setData();          // insere elapsedTime em vectorPosition de data2Analisys[]
+    void setData(); // insere elapsedTime em vectorPosition de data2Analisys[]
     void mean();
     void stdDeviationAndVar();
 
-    void calcLeastSquareArrow();
-    PLFLT calcPointLeastSquareArrow(PLINT x);
 };
 
 #endif	/* STATISTIC_H */

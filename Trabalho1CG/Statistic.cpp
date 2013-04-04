@@ -92,42 +92,63 @@ void Statistic::stdDeviationAndVar() {
 
 void Statistic::showStatistic() {
     int width = 15;
+
     mean();
     stdDeviationAndVar();
+    
+#ifdef PL_PLOT_GRAPH
     calcLeastSquareArrow();
+#endif
+    
     cout << "Radius  " << "Average   " << "Standard Deviation   " << "Variance" << endl;
     cout << "------------------------------------------------" << endl;
     for (int i = 0; i < NUMBERS_OF_POINTS; i++)
-        cout << i + 1 << setw(width) << average[i]  << setw(width) << standardDeviantion[i]  << setw(width) << variance[i]  << endl;
-    
+        cout << i + 1 << setw(width) << average[i] << setw(width) << standardDeviantion[i] << setw(width) << variance[i] << endl;
+
+#ifdef PL_PLOT_GRAPH
     cout << "Equation of Least Mean Square" << endl;
     cout << "y = " << aLS << " + " << bLS << "x" << endl;
     cout << "------------------------------------------------" << endl;
+#endif
 }
 
+#ifdef PL_PLOT_GRAPH
 void Statistic::plotStatistic(int op) {
 
-    PLFLT x[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo x */
-    PLFLT y[NUMBERS_OF_POINTS]; /* Vetor com os pontos do eixo y */
+    vector<PLFLT> X_LS; /* Vetor com os pontos do eixo x */
+    vector<PLFLT> Y_LS; /* Vetor com os pontos do eixo y */
     PLINT i;
 
-    PLFLT x_LS[NUMBERS_OF_POINTS];
-    PLFLT y_LS[NUMBERS_OF_POINTS];
+    PLFLT x[NUMBERS_OF_POINTS];
+    PLFLT y[NUMBERS_OF_POINTS];
 
     double min = INFINITY;
     double max = 0;
 
     for (i = 0; i < NUMBERS_OF_POINTS; i++) {
-        x_LS[i] = x[i] = (PLFLT) (i + 1);
+        x[i] = (PLFLT) (i + 1);
         y[i] = (PLFLT) average[i];
-        y_LS[i] = calcPointLeastSquareArrow(i + 1);
-
         if (y[i] < min)
             min = y[i];
         if (y[i] > max)
             max = y[i];
     }
 
+    for (PLFLT x_d = 0.0f; x_d < NUMBERS_OF_POINTS * 4; ) {
+        X_LS.push_back(x_d);
+        Y_LS.push_back(calcPointLeastSquareArrow(x_d));
+        x_d = x_d + 0.01f;
+    }
+
+    PLINT size = X_LS.size();
+    PLFLT x_LS[size];
+    PLFLT y_LS[size];
+    
+    for(int j=0; j< size;j++){
+        x_LS[j] = X_LS[j];
+        y_LS[j] = Y_LS[j];
+    }
+    
     plsdev("png"); //para gerar files.png
     switch (op) {
         case 0:
@@ -154,26 +175,26 @@ void Statistic::plotStatistic(int op) {
             plcol0(2); //yellow
             plpoin(NUMBERS_OF_POINTS, x, y, '.');
             plcol0(3); //green
-            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            plline(size, x_LS, y_LS);
             break;
         case 1:
             pllab("Radius", "Average (us)", "Polar");
             plcol0(2); //yellow
             plpoin(NUMBERS_OF_POINTS, x, y, '.');
             plcol0(3); //green
-            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            plline(size, x_LS, y_LS);
             break;
         case 2:
             pllab("Radius", "Average (us)", "MidPoint");
             plcol0(2); //yellow
             plpoin(NUMBERS_OF_POINTS, x, y, '.');
             plcol0(3); //green
-            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            plline(size, x_LS, y_LS);
             break;
         default:
             pllab("Radius", "Average (us)", "Trabalho 1 - Computacao Grafica");
             plpoin(NUMBERS_OF_POINTS, x, y, '.');
-            plline(NUMBERS_OF_POINTS, x_LS, y_LS);
+            plline(size, x_LS, y_LS);
             break;
     }
 
@@ -182,6 +203,10 @@ void Statistic::plotStatistic(int op) {
 }
 
 PLFLT Statistic::calcPointLeastSquareArrow(PLINT x) {
+    return (aLS + bLS * x);
+}
+
+PLFLT Statistic::calcPointLeastSquareArrow(PLFLT x) {
     return (aLS + bLS * x);
 }
 
@@ -208,11 +233,6 @@ void Statistic::calcLeastSquareArrow() {
 
     bLS = (long double) num / den;
     aLS = y_mean - bLS*half;
-}
-
-void Statistic::setRadius(int radius) {
-    vectorPosition = radius;
-    return;
 }
 
 void Statistic::makeTestStatistical() {
@@ -255,4 +275,10 @@ void Statistic::makeTestStatistical() {
     cout << b << endl;
     cout << a << endl;
 
+}
+#endif
+
+void Statistic::setRadius(int radius) {
+    vectorPosition = radius;
+    return;
 }
